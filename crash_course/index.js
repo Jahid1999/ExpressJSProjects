@@ -1,4 +1,5 @@
 const express = require('express');
+var exphbs  = require('express-handlebars');
 const path = require('path');
 
 
@@ -10,6 +11,13 @@ const logger = (req, res, next) => {
 };
 
 app.use(logger);
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+app.get('/', function (req, res) {
+    res.render('index');
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));

@@ -42,4 +42,24 @@ router.post('/users', (req, res) => {
 
 })
 
+router.put('/users/:user_id', (req, res) => {
+    const found = users.some(user => user.id === parseInt(req.params.user_id));
+
+    if(found) {
+        users.forEach( user => {
+            if(user.id === parseInt(req.params.id)) {
+                user.name = req.body.name ? req.body.name : user.name;
+                user.email = req.body.email ? req.body.email : user.email;
+
+                res.status(201).json({msg: "User updted successfully"});
+            }
+        });
+
+    }
+    else {
+        res.status(400).json({msg: `User not found with id = ${req.params.user_id}`});
+    }
+})
+
+
 module.exports = router;
