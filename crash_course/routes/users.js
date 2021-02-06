@@ -27,4 +27,19 @@ router.get('/users/:user_id', (req, res) => {
     }
 })
 
+router.post('/users', (req, res) => {
+    const newUser = {
+        id: uuid.v4(),
+        name: req.body.name,
+        email: req.body.email,
+    }
+
+    if(!newUser.name || !newUser.email) {
+        return res.status(400).json({ msg: "please enter name and email"});
+    }
+    users.push(newUser);
+    res.status(200).json(newUser);
+
+})
+
 module.exports = router;
